@@ -1,16 +1,4 @@
-First_Sea = false
-Second_Sea = false
-Third_Sea = false
-local placeId = game.PlaceId
-if placeId == 2753915549 then
-    First_Sea = true
-elseif placeId == 4442272183 then
-    Second_Sea = true
-elseif placeId == 7449423635 then
-    Third_Sea = true
-end
-local CheckLevel = {}
-function CheckLevel:Get(SelectMonster)
+function CheckLevel(SelectMonster)
     local Lv = game:GetService("Players").LocalPlayer.Data.Level.Value
     if First_Sea then
         if Lv == 1 or Lv <= 9 or SelectMonster == "Bandit" or SelectArea == '' then -- Bandit
@@ -249,6 +237,7 @@ function CheckLevel:Get(SelectMonster)
                 NameMon = "Galley Pirate",
                 CFrameQ = CFrame.new(5258.2788085938, 38.526931762695, 4050.044921875),
                 CFrameMon = CFrame.new(5557.1684570313, 152.32717895508, 3998.7758789063)
+            }
         elseif Lv >= 650 or SelectMonster == "Galley Captain" or SelectArea == 'Fountain' then -- Galley Captain
             return {
                 Ms = "Galley Captain",
@@ -257,6 +246,7 @@ function CheckLevel:Get(SelectMonster)
                 NameMon = "Galley Captain",
                 CFrameQ = CFrame.new(5258.2788085938, 38.526931762695, 4050.044921875),
                 CFrameMon = CFrame.new(5677.6772460938, 92.786109924316, 4966.6323242188)
+            }
         end
     end
     if Second_Sea then
@@ -794,4 +784,3 @@ function CheckLevel:Get(SelectMonster)
         end
     end
 end
-return CheckLevel
