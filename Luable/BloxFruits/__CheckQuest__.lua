@@ -1,4 +1,16 @@
-function CheckLevel(SelectMonster)
+First_Sea = false
+Second_Sea = false
+Third_Sea = false
+local placeId = game.PlaceId
+if placeId == 2753915549 then
+    First_Sea = true
+elseif placeId == 4442272183 then
+    Second_Sea = true
+elseif placeId == 7449423635 then
+    Third_Sea = true
+end
+local CheckLevel = {}
+function Call(SelectMonster)
     local Lv = game:GetService("Players").LocalPlayer.Data.Level.Value
     if First_Sea then
         if Lv == 1 or Lv <= 9 or SelectMonster == "Bandit" or SelectArea == '' then -- Bandit
@@ -784,3 +796,4 @@ function CheckLevel(SelectMonster)
         end
     end
 end
+return CheckLevel
