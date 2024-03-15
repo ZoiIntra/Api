@@ -463,6 +463,7 @@ function CheckLevel:Get(SelectMonster)
                 NameMon = "Sea Soldier",
                 CFrameQ = CFrame.new(-3054.5827636719, 236.87213134766, -10147.790039063),
                 CFrameMon = CFrame.new(-3185.0153808594, 58.789089202881, -9663.6064453125)
+            }
         elseif Lv >= 1450 or SelectMonster == "Water Fighter" or SelectArea == 'Forgotten' then -- Water Fighter
             return {
                 Ms = "Water Fighter",
@@ -471,6 +472,7 @@ function CheckLevel:Get(SelectMonster)
                 NameMon = "Water Fighter",
                 CFrameQ = CFrame.new(-3054.5827636719, 236.87213134766, -10147.790039063),
                 CFrameMon = CFrame.new(-3262.9301757813, 298.69036865234, -10552.529296875)
+            }
         end
     end
     if Third_Sea then
