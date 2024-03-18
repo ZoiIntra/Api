@@ -1,4 +1,4 @@
-return = {
+return {
     print, --1
     warn, --2
     hookfunction, --3
@@ -44,4 +44,5 @@ return = {
     cancel, --43
     tick, --44
     typeof, --45
+    new --46
 }
