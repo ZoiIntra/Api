@@ -54,5 +54,6 @@ return {
     listfiles, --53
     loadfile, --54
     appendfile, --55
-    writefile --56
+    writefile, --56
+    Vector3.new --57
 }
