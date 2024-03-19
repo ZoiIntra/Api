@@ -44,5 +44,6 @@ return {
     cancel, --43
     tick, --44
     typeof, --45
-    new --46
+    new, --46
+    getconnections --47
 }
