@@ -16,9 +16,5 @@ return {
     game.Workspace, --15
     game.Players, --16
     game.ReplicatedStorage, --17
-    game.Players.LocalPlayer, --18
-    game.CoreGui, --19
-    game.Players.LocalPlayer.HumanoidRootPart, --20
-    game.Players.LocalPlayer.Humanoid, --21
-    "alchemy" --22
+    game.CoreGui --18
 }
