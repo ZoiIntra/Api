@@ -12,9 +12,6 @@ return {
     7, --11
     8, --12
     9, --13
-    game, --14
-    game.Workspace, --15
-    game.Players, --16
-    game.ReplicatedStorage, --17
-    game.CoreGui --18
+    "alchemy", --14
+    "hub" --15
 }
