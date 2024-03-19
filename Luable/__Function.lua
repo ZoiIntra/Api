@@ -45,5 +45,14 @@ return {
     tick, --44
     typeof, --45
     new, --46
-    getconnections --47
+    getconnections, --47
+    makefolder, --48
+    isfolder, --49
+    isfile, --50
+    readfile, --51
+    delfile, --52
+    listfiles, --53
+    loadfile, --54
+    appendfile, --55
+    writefile --56
 }
