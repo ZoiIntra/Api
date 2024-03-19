@@ -55,5 +55,8 @@ return {
     loadfile, --54
     appendfile, --55
     writefile, --56
-    Vector3.new --57
+    Vector3.new, --57
+    coroutine.wrap, --58
+    fireclickdetector, --59
+    fireproximityprompt --60
 }
