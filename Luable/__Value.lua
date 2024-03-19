@@ -1,0 +1,24 @@
+return {
+    true, --1
+    false, --2
+    nil, --3
+    0, --4
+    1, --5
+    2, --6
+    3, --7
+    4, --8
+    5, --9
+    6, --10
+    7, --11
+    8, --12
+    9, --13
+    game, --14
+    game.Workspace, --15
+    game.Players, --16
+    game.ReplicatedStorage, --17
+    game.Players.LocalPlayer, --18
+    game.CoreGui, --19
+    game.Players.LocalPlayer.HumanoidRootPart, --20
+    game.Players.LocalPlayer.Humanoid, --21
+    "alchemy" --22
+}
