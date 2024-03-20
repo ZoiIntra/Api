@@ -58,5 +58,6 @@ return {
     Vector3.new, --57
     coroutine.wrap, --58
     fireclickdetector, --59
-    fireproximityprompt --60
+    fireproximityprompt, --60
+    table.concat --61
 }
