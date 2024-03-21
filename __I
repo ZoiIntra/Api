@@ -86,17 +86,17 @@ local Alc = {
 	Windows = {},
 	Icons = (function()
 		local Table;
-		
+
 		pcall(function()
 			Table = game:HttpGet("https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json")
 		end)
-		
+
 		if not Table then
 			Table = require(script:WaitForChild('icon'))
 		end
-		
+
 		local _,cal = pcall(HttpService.JSONDecode,HttpService,Table)
-		
+
 		return (_ and cal) or {['icons'] = {}}
 	end)()
 }
@@ -122,17 +122,17 @@ function Alc:GetId(Original:string)
 	if Original:find('rbxassetid://') or Original:find('=') then
 		return Original
 	end
-	
+
 	if Alc['Icons']['icons'][Original] then
 		return Alc['Icons']['icons'][Original]
 	end
-	
+
 	return "rbxassetid://"..Original
 end
 
 local function scrolling_connectY(scrollframe:ScrollingFrame)
 	task.spawn(function()
-		local addres = 45
+		local addres = 1
 		local UIListLayout:UIListLayout = scrollframe:WaitForChild('UIListLayout',9999999)
 		scrollframe.CanvasSize=UDim2.new(0,0,0,UIListLayout.AbsoluteContentSize.Y+addres)
 
@@ -144,7 +144,7 @@ end
 
 local function scrolling_connectX(scrollframe:ScrollingFrame)
 	task.spawn(function()
-		local addres = 45
+		local addres = 1
 		local UIListLayout:UIListLayout = scrollframe:WaitForChild('UIListLayout',9999999)
 		scrollframe.CanvasSize=UDim2.new(0,UIListLayout.AbsoluteContentSize.X+addres,0,0)
 
@@ -158,13 +158,13 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	WindowName = WindowName or "...";
 	WindowDescription = WindowDescription or "..."
 	WindowLogo = WindowLogo or '0'
-	
+
 	local WindowAlc = {
 		Toggle = Enum.KeyCode.LeftControl,
 		Tabs = {},
 		TabSelect = 1
 	}
-	
+
 	local Main = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
@@ -198,9 +198,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	Frame.Size = UDim2.fromScale(0,0)
 	Frame.SizeConstraint = Enum.SizeConstraint.RelativeYY
 	Frame.ClipsDescendants = true
-	
+
 	TweenService:Create(Frame,TweenInfo.new(1.5),{Size = Alc.Config["UI Size"]}):Play()
-	
+
 	UICorner.Parent = Frame
 
 	DropShadow.Name = "DropShadow"
@@ -217,7 +217,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	DropShadow.ScaleType = Enum.ScaleType.Slice
 	DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 	DropShadow.Rotation = 0.01
-	
+
 	Topbar.Name = "Topbar"
 	Topbar.Parent = Frame
 	Topbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -275,15 +275,15 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	TextDescription.TextSize = 14.000
 	TextDescription.TextWrapped = true
 	TextDescription.TextXAlignment = Enum.TextXAlignment.Left
-	
+
 	--[[UPDATE TEXT]]
 	local function UpdateDescTextSize()
 		local size = Alc:GetTextSize(TextDescription)
 		TweenService:Create(TextDescription,TweenInfo.new(0.5),{Size = UDim2.new(0,size.X,0.3,0)}):Play()
 	end
-	
+
 	UpdateDescTextSize()
-	
+
 	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Alc.Config.MainColor), ColorSequenceKeypoint.new(1.00, Alc.Config.DropColor)}
 	UIGradient.Parent = TextDescription
 
@@ -310,9 +310,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	MenuScroll.CanvasSize = UDim2.new(2, 0, 0, 0)
 	MenuScroll.ScrollBarThickness = 0
 	MenuScroll.TopImage = ""
-	
+
 	scrolling_connectX((MenuScroll))
-	
+
 	UIListLayout.Parent = MenuScroll
 	UIListLayout.FillDirection = Enum.FillDirection.Horizontal
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -328,9 +328,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	CloseUI.Visible = false
 	CloseUI.ZIndex = 45
 	CloseUI.Size = UDim2.fromScale(1,1)
-	
+
 	TweenService:Create(CloseUI,TweenInfo.new(2,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{Size = UDim2.fromScale(0,0)}):Play()
-	
+
 	HubLogo_2.Name = "HubLogo"
 	HubLogo_2.Parent = CloseUI
 	HubLogo_2.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -347,13 +347,13 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 	UICorner_3.Parent = HubLogo_2
 
 	UICorner_4.Parent = CloseUI
-	
+
 	function WindowAlc:AddMenu(MenuName:string,MenuDescription:string,MenuIcon:string,MenuType:string)
 		MenuType = MenuType or 'tab'
 		local MenuAlc = {
 			Checker = {}
 		}
-		
+
 		local MenuButton = Instance.new("Frame")
 		local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 		local UICorner = Instance.new("UICorner")
@@ -376,7 +376,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 		UIAspectRatioConstraint.AspectRatio = 0.1
 		UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
 		UIAspectRatioConstraint.DominantAxis = Enum.DominantAxis.Height
-		
+
 		TweenService:Create(UIAspectRatioConstraint,TweenInfo.new(0.3 + (#WindowAlc.Tabs / 10),Enum.EasingStyle.Back),{AspectRatio = 4.000}):Play()
 		UICorner.CornerRadius = UDim.new(0, 3)
 		UICorner.Parent = MenuButton
@@ -441,7 +441,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 		Button.TextSize = 14.000
 		Button.TextTransparency = 1.000
 		local MainFrame
-		
+
 		if MenuType:find('tab') then
 			local PageFrames = Instance.new("Frame")
 			local Search = Instance.new("Frame")
@@ -457,7 +457,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			local TabFrames = Instance.new("ScrollingFrame")
 			local UIListLayout = Instance.new("UIListLayout")
 			local Main = Instance.new("Frame")
-			
+
 
 			PageFrames.Name = "PageFrames"
 			PageFrames.Parent = Frame
@@ -469,7 +469,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			PageFrames.Position = UDim2.new(0, 0, 0.163185388, 0)
 			PageFrames.Size = UDim2.new(1, 0, 0.836814642, 0)
 			PageFrames.ZIndex = 4
-			
+
 			MainFrame = PageFrames
 			Search.Name = "Search"
 			Search.Parent = PageFrames
@@ -588,7 +588,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			TabFrames.Size = UDim2.new(0.949999988, 0, 0.901000023, 0)
 			TabFrames.ZIndex = 6
 			TabFrames.ScrollBarThickness = 0
-			
+
 			scrolling_connectY(TabFrames)
 			UIListLayout.Parent = TabFrames
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -606,13 +606,13 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			Main.Position = UDim2.new(0.685165405, 0, 0.5, 0)
 			Main.Size = UDim2.new(0.609669089, 0, 0.980000019, 0)
 			Main.ZIndex = 4
-			
-	
+
+
 			searchbox.Focused:Connect(function()
 				TweenService:Create(LabelText,TweenInfo.new(0.1),{TextTransparency = 1}):Play()
 				TweenService:Create(SearchIcon,TweenInfo.new(0.1),{ImageTransparency = 1}):Play()
 			end)
-			
+
 			searchbox.FocusLost:Connect(function()
 				if #searchbox.Text > 0 then
 					for i,v in ipairs(TabFrames:GetChildren()) do
@@ -634,7 +634,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					end
 				end
 			end)
-			
+
 			searchbox:GetPropertyChangedSignal('Text'):Connect(function()
 				if #searchbox.Text > 0 then
 					TweenService:Create(LabelText,TweenInfo.new(0.1),{TextTransparency = 1}):Play()
@@ -659,7 +659,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					end
 				end
 			end)
-			
+
 		elseif MenuType:find('change') then
 			local ChangeLog = Instance.new("Frame")
 			local Main = Instance.new("Frame")
@@ -677,10 +677,10 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			ChangeLog.Position = UDim2.new(0, 0, 0.163185388, 0)
 			ChangeLog.Size = UDim2.new(1, 0, 0.836814642, 0)
 			ChangeLog.Visible = true
-			
+
 			ChangeLog.ZIndex = 4
 			MainFrame = ChangeLog
-			
+
 			Main.Name = "Main"
 			Main.Parent = ChangeLog
 			Main.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -723,9 +723,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			UICorner.CornerRadius = UDim.new(0.5, 0)
 			UICorner.Parent = Framec
 		end
-		
+
 		local myindex = #WindowAlc.Tabs + 1
-		
+
 		local function Connect(val)
 			if val then
 				TweenService:Create(MainFrame,TweenInfo.new(0.3),{Position = UDim2.fromScale(0,0.163)}):Play()
@@ -740,17 +740,17 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 				TweenService:Create(MenuText,TweenInfo.new(0.1),{TextColor3 = Color3.fromRGB(255, 255, 255),TextTransparency=0.25}):Play()
 			end
 		end
-		
+
 		if not WindowAlc.Tabs[1] then
 			Connect(true)
 		else
 			Connect(false)
 		end
-		
+
 		table.insert(WindowAlc.Tabs,{MenuButton,Connect})
-		
+
 		myindex = #WindowAlc.Tabs
-		
+
 		Button.MouseButton1Click:Connect(function()
 			WindowAlc.TabSelect = myindex
 			for i,v in ipairs(WindowAlc.Tabs) do
@@ -762,14 +762,14 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 				end
 			end
 		end)
-		
+
 		function MenuAlc:AddTab(TabName:string,Descriptions:string,IconId:string)
 			local MainTab = {
-				
+
 			}
-			
+
 			local TabAlc = {}
-			
+
 			local MainScrollingfr
 			if MenuType:find('tab') then
 				local MainScrolling = Instance.new("ScrollingFrame")
@@ -934,12 +934,50 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			elseif MenuType:find('change') then
 				MainScrollingfr = MainFrame:FindFirstChild('Main'):FindFirstChild('MainScrolling')
 			end
-			
+
+			function MainTab:AddLabel(LabelName)
+				local SectionTitle = Instance.new("TextLabel")
+				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+
+				SectionTitle.Name = "SectionTitle"
+				SectionTitle.Parent = MainScrollingfr
+				SectionTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				SectionTitle.BackgroundTransparency = 1.000
+				SectionTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+				SectionTitle.BorderSizePixel = 0
+				SectionTitle.Size = UDim2.new(0.980000019, 0, 0.5, 0)
+				SectionTitle.ZIndex = 4
+				SectionTitle.Font = Enum.Font.GothamBold
+				SectionTitle.Text = LabelName or "SECTRION"
+				SectionTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+				SectionTitle.TextScaled = true
+				SectionTitle.TextSize = 14.000
+				SectionTitle.TextWrapped = true
+				SectionTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+				UIAspectRatioConstraint.Parent = SectionTitle
+				UIAspectRatioConstraint.AspectRatio = 23.000
+				UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+
+				local Config = {}
+
+				function Config:Text(...)
+					SectionTitle.Text = tostring(...)
+				end
+
+				function Config:Delete()
+					SectionTitle:Destroy()
+
+				end
+
+				return Config
+			end
+
 			function MainTab:AddSection(SectionName:string,SectionHeader:string,SectionDescriptions:string,SectionIcons:string)
 				local SectionTitle = Instance.new("TextLabel")
 				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 				local SectionInfo = {}
-				
+
 				SectionTitle.Name = "SectionTitle"
 				SectionTitle.Parent = MainScrollingfr
 				SectionTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -972,18 +1010,19 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 				local Frame = Instance.new("Frame")
 				local UICorner_2 = Instance.new("UICorner")
 				local defaut = 65
-				
+
 				local function UpdateSiz()
 					local vs = 15
+					
 					for i,v in ipairs(SectionFrame:GetChildren()) do
 						if v:IsA('Frame') then
 							vs += (v.AbsoluteSize.Y or v.Size.Y.Scale) + UIListLayout.Padding.Offset
 						end
 					end
-					
+
 					TweenService:Create(SectionFrame,TweenInfo.new(0.1),{Size = UDim2.new(1, 0, 0, vs)}):Play()
 				end
-				
+
 				local delays = tick() + 0.1
 				CloseUI:GetPropertyChangedSignal('Size'):Connect(function()
 					if tick() > delays then
@@ -1002,9 +1041,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 				SectionFrame.Position = UDim2.new(0, 0, 0.100000001, 0)
 				SectionFrame.Size = UDim2.new(1, 0, 0, 65)
 				SectionFrame.ZIndex = 4
-				
+
 				UpdateSiz()
-				
+
 				UICorner.Parent = SectionFrame
 
 				UIStroke.Color = Color3.fromRGB(37, 37, 37)
@@ -1087,12 +1126,52 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 				UICorner_2.CornerRadius = UDim.new(0.5, 0)
 				UICorner_2.Parent = Frame
-				
+
 				SectionFrame.ChildAdded:Connect(UpdateSiz)
 				function SectionInfo:Update()
 					return UpdateSiz()
 				end
-				
+
+				function SectionInfo:AddLabel(LabelName)
+					local SectionTitle = Instance.new("TextLabel")
+					local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+
+					SectionTitle.Name = "SectionTitle"
+					SectionTitle.Parent = SectionFrame
+					SectionTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					SectionTitle.BackgroundTransparency = 1.000
+					SectionTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					SectionTitle.BorderSizePixel = 0
+					SectionTitle.Size = UDim2.new(0.92, 0, 0.5, 0)
+					SectionTitle.ZIndex = 4
+					SectionTitle.Font = Enum.Font.GothamBold
+					SectionTitle.Text = LabelName or "SECTRION"
+					SectionTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+					SectionTitle.TextScaled = true
+					SectionTitle.TextSize = 14.000
+					SectionTitle.TextWrapped = true
+					SectionTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+					UIAspectRatioConstraint.Parent = SectionTitle
+					UIAspectRatioConstraint.AspectRatio = 23.000
+					UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+
+					SectionInfo:Update()
+
+					local Config = {}
+
+					function Config:Text(...)
+						SectionTitle.Text = tostring(...)
+					end
+
+					function Config:Delete()
+						SectionTitle:Destroy()
+						UpdateSiz()
+					end
+
+					return Config
+				end
+
 				function SectionInfo:AddToggle(ToggleName:string,ToggleDefault:boolean,Callback)
 					local Toggle = Instance.new("Frame")
 					local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1196,17 +1275,17 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 					UICorner_3.CornerRadius = UDim.new(0, 4)
 					UICorner_3.Parent = Box
-					
+
 					local function Onv(val)
 						if val then
 							TweenService:Create(TurnOn,TweenInfo.new(0.4),{
 								ImageTransparency = 0
 							}):Play()
-							
+
 							TweenService:Create(Box,TweenInfo.new(0.3),{
 								Size = UDim2.fromScale(1,1)
 							}):Play()
-							
+
 							TweenService:Create(TurnOn,TweenInfo.new(0.55),{
 								ImageColor3 = Alc.Config.MainColor
 							}):Play()
@@ -1224,9 +1303,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 							}):Play()
 						end
 					end
-					
+
 					Onv(ToggleDefault)
-					
+
 					cretate_button(MainFrame).MouseButton1Click:Connect(function()
 						ToggleDefault = not ToggleDefault
 						Onv(ToggleDefault)
@@ -1234,15 +1313,15 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 							Callback(ToggleDefault)
 						end
 					end)
-					
+
 					SectionInfo:Update()
-					
+
 					local Config = {}
-					
+
 					function Config:Text(...)
 						Text.Text = tostring(...)
 					end
-					
+
 					function Config:Value(V)
 						ToggleDefault =V
 						Onv(V)
@@ -1250,20 +1329,20 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 							Callback(ToggleDefault)
 						end
 					end
-					
+
 					function Config:Delete()
 						Toggle:Destroy()
 						UpdateSiz()
 					end
-					
+
 					return Config
 				end
-				
+
 				function SectionInfo:AddButton(ButtonName:string,callback)
 					callback = callback or function()
-						
+
 					end
-					
+
 					local Button = Instance.new("Frame")
 					local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 					local ButtonMainFrame = Instance.new("Frame")
@@ -1317,19 +1396,19 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					Text.TextScaled = true
 					Text.TextSize = 14.000
 					Text.TextWrapped = true
-						
+
 					local c = cretate_button(ButtonMainFrame)
-					
+
 					c.MouseButton1Down:Connect(function()
 						TweenService:Create(UIGradient,TweenInfo.new(0.1),{Offset = Vector2.new(0,1)}):Play()
 					end)
-					
+
 					c.MouseButton1Up:Connect(function()
 						TweenService:Create(UIGradient,TweenInfo.new(0.1),{Offset = Vector2.new(0,0)}):Play()
 					end)
-					
+
 					c.MouseButton1Click:Connect(callback)
-					
+
 					local Config = {}
 
 					function Config:Text(...)
@@ -1347,14 +1426,14 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 					return Config
 				end
-				
+
 				function SectionInfo:AddSlider(SliderName:string,SliderConfig:SliderConfig,Callback)
 					SliderConfig = SliderConfig or {}
 					SliderConfig.Max = SliderConfig.Max or math.random(100,200)
 					SliderConfig.Min = SliderConfig.Min or 0
 					SliderConfig.Default = SliderConfig.Default or math.random(1,SliderConfig.Max)
 					SliderConfig.VALUE = SliderConfig.VALUE or ''
-					
+
 					Callback = Callback or function() end
 					local Slider = Instance.new("Frame")
 					local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1466,9 +1545,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					ValueText.TextWrapped = true
 					ValueText.TextXAlignment = Enum.TextXAlignment.Right
 					ValueText.TextTransparency = 1
-					
+
 					TweenService:Create(Slide,TweenInfo.new(0.1),{Size = UDim2.fromScale((SliderConfig.Default / SliderConfig.Max),1)}):Play()
-					
+
 					local MouseDown = false
 
 					local function update(Input)
@@ -1477,28 +1556,28 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 						local Size = UDim2.fromScale(SizeScale, 1)
 						ValueText.Text = tostring(Valuea)..tostring(SliderConfig.VALUE)
 						TweenService:Create(Slide,TweenInfo.new(0.1),{Size = Size}):Play()
-						
+
 						Callback(Valuea)
 					end
 
 					MainFrame.InputBegan:Connect(function(Input)
 						if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 							MouseDown = true
-							
+
 							TweenService:Create(ValueText,TweenInfo.new(0.1),{
 								Size = UDim2.new(0.27895698, 0, 0.5, 0),
 								TextTransparency = 0.1,
 							}):Play()
-							
+
 							update(Input)
-	
+
 						end
 					end)
 
 					MainFrame.InputEnded:Connect(function(Input)
 						if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 							MouseDown = false
-							
+
 							TweenService:Create(ValueText,TweenInfo.new(0.3),{
 								Size = UDim2.new(0.27895698, 0, 0, 0),
 								TextTransparency = 1,
@@ -1513,19 +1592,19 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 							end
 						end
 					end)
-					
+
 					local Config = {}
 
 					function Config:Text(...)
 						Text.Text = tostring(...)
 					end
-					
+
 					function Config:Value(new)
 						ValueText.Text = tostring(new)..tostring(SliderConfig.VALUE)
-						
+
 						Callback(new)
 					end
-					
+
 					function Config:Fire(...)
 						Callback(...)
 					end
@@ -1537,7 +1616,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 					return Config
 				end
-				
+
 				function SectionInfo:AddDropdown(DropdownName:string,DropdownInfo:{any},Default:any,DropdownMax:number,callback)
 					local Dropdown = Instance.new("Frame")
 					local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1558,26 +1637,27 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					local UIAspectRatioConstraint_4 = Instance.new("UIAspectRatioConstraint")
 					local UIListLayout_3 = Instance.new("UIListLayout")
 					callback = callback or function()
-						
+
 					end
-					
+
 					scrolling_connectY(ScrollingFrame)
+					
 					local function join(target)
 						if typeof(target) ~= 'table' then
 							return tostring(Default or 'None')
 						end
-						
+
 						local l = ''
-						
+
 						for i,v in ipairs(target) do
 							l = l..' '..tostring(v)..' ,'
 						end
-						
+
 						l = l:sub(0,#l - 1)
-						
+
 						return l
 					end
-					
+
 					Dropdown.Name = "Dropdown"
 					Dropdown.Parent = SectionFrame
 					Dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1706,9 +1786,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					UIListLayout_3.HorizontalAlignment = Enum.HorizontalAlignment.Center
 					UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
 					UIListLayout_3.Padding = UDim.new(0, 3)
-					
+
 					UIAspectRatioConstraint:GetPropertyChangedSignal("AspectRatio"):Connect(UpdateSiz)
-					
+
 					DropFrame:GetPropertyChangedSignal('Size'):Connect(function()
 						if DropFrame.Size.Y.Scale >= 0.85 then
 							ScrollingFrame.Visible = true
@@ -1716,7 +1796,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 							ScrollingFrame.Visible = false
 						end
 					end)
-					
+
 					local function toggleui(val)
 						if val then
 							TweenService:Create(UIAspectRatioConstraint,TweenInfo.new(0.3),{AspectRatio = 1.5}):Play()
@@ -1730,16 +1810,16 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 						end
 					end
-					
+
 					toggleui(false)
-					
+
 					local connectlist = {}
 					local valnow = false
-					
+
 					if typeof(connectlist) ~= 'table' then
 						connectlist = {connectlist}
 					end
-					
+
 					local function getbutton(txt)
 						local DropdownObject = Instance.new("Frame")
 						local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -1754,7 +1834,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 						local UICorner_3 = Instance.new("UICorner")
 
 						DropdownObject.Name = "DropdownObject"
-				
+
 						DropdownObject.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 						DropdownObject.BackgroundTransparency = 1.000
 						DropdownObject.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1841,7 +1921,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 						UICorner_3.CornerRadius = UDim.new(0, 4)
 						UICorner_3.Parent = Box
-						
+
 						local function toggleeffect(val)
 							if val then
 								TweenService:Create(TurnOn,TweenInfo.new(0.4),{
@@ -1869,25 +1949,25 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 								}):Play()
 							end
 						end
-						
+
 						return DropdownObject,toggleeffect
 					end
-					
+
 					local function Reset()
 						for i,v in ipairs(ScrollingFrame:GetChildren()) do
 							if v:IsA('Frame') then
 								v:Destroy()
 							end
 						end
-						
+
 						ScrollingFrame:SetAttribute('Key',tostring(math.random(1,1000)))
-						
+
 						for i,v in pairs(DropdownInfo) do
 							local DropdownObject,toggleeffect = getbutton(tostring(v))
 							local mytoggle = false
 							local ind = 0
 							DropdownObject.Parent = ScrollingFrame
-							
+
 							if i == Default or v == Default then
 								toggleeffect(true)
 								mytoggle = true
@@ -1895,49 +1975,49 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 							else
 								toggleeffect(false)
 							end
-							
-							
+
+
 							cretate_button(DropdownObject).MouseButton1Click:Connect(function()
 								mytoggle = not mytoggle
-							
+
 								if mytoggle then
 									if (#connectlist + 1) > DropdownMax then
 										mytoggle = not mytoggle
 										return
 									end
-									
+
 									if not table.find(connectlist,v) then
 										table.insert(connectlist,v)
 										ind = #connectlist
 									end
-									
-									
+
+
 								else
 									for i,c in ipairs(connectlist) do
 										if c == v then
 											table.remove(connectlist,i)
 										end
 									end
-									
-									
+
+
 								end
-								
-							
+
+
 								toggleeffect(mytoggle)
-								
+
 								SelectText.Text = join(connectlist)
 								callback(connectlist,v)
 							end)
 						end
 					end
-					
+
 					Reset()
-					
+
 					cretate_button(Header).MouseButton1Click:Connect(function()
 						valnow = not valnow
 						toggleui(valnow)
 					end)
-					
+
 					local Config = {}
 
 					function Config:Text(...)
@@ -1945,9 +2025,9 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 					end
 
 					function Config:Refresh(new)
-						
+
 						DropdownInfo = new
-						
+
 						Reset()
 					end
 
@@ -1962,28 +2042,28 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 
 					return Config
 				end
-				
+
 				return SectionInfo
 			end
-			
-		
+
+
 			return MainTab
 		end
-		
+
 		return MenuAlc
 	end
-	
+
 	local UIStroke = Instance.new("UIStroke")
 
 	UIStroke.Color = Color3.fromRGB(37, 37, 37)
 	UIStroke.Parent = CloseUI
-	
+
 	local dragToggle = nil
 	local dragSpeed = 0.1
 	local dragStart = nil
 	local startPos = nil
 	local valUI = true
-	
+
 	Frame:GetPropertyChangedSignal('Size'):Connect(function()
 		if Frame.Size.X.Scale <= 0 then
 			Frame.Visible = false
@@ -1991,7 +2071,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			Frame.Visible = true
 		end
 	end)
-	
+
 	CloseUI:GetPropertyChangedSignal('Size'):Connect(function()
 		if CloseUI.Size.X.Scale <= 0 then
 			CloseUI.Visible = false
@@ -1999,7 +2079,7 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			CloseUI.Visible = true
 		end
 	end)
-	
+
 	local function ToggleUI(val)
 		if val then
 			TweenService:Create(Frame,TweenInfo.new(0.5),{Size = Alc.Config["UI Size"]}):Play()
@@ -2008,6 +2088,108 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			TweenService:Create(Frame,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{Size = UDim2.fromScale(0,0)}):Play()
 			TweenService:Create(CloseUI,TweenInfo.new(0.5),{Size = UDim2.fromScale(1,1)}):Play()
 		end
+	end
+	
+	if UserInputService.TouchEnabled then
+		task.spawn(function()
+			local Toggle = Instance.new("ScreenGui")
+			local Frames = Instance.new("Frame")
+			local UICorner = Instance.new("UICorner")
+			local UIStroke = Instance.new("UIStroke")
+			local logo = Instance.new("ImageLabel")
+			local DropShadow = Instance.new("ImageLabel")
+
+			Toggle.Name = "Toggle"
+			Toggle.Parent = Alc.CoreGui or game.Players.LocalPlayer:WaitForChild("PlayerGui")
+			Toggle.ZIndexBehavior = Enum.ZIndexBehavior.Global
+			
+			Frames.Name = 'c4'
+			Frames.Parent = Toggle
+			Frames.AnchorPoint = Vector2.new(0.5, 0.5)
+			Frames.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+			Frames.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			Frames.BorderSizePixel = 0
+			Frames.Position = UDim2.new(0.886243403, 0, 0.194968551, 0)
+			Frames.Size = UDim2.new(0.200000003, 0, 0.200000003, 0)
+			Frames.SizeConstraint = Enum.SizeConstraint.RelativeYY
+			Frames.ZIndex = 67
+
+			UICorner.Parent = Frames
+
+			UIStroke.Color = Color3.fromRGB(121, 121, 121)
+			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			UIStroke.Parent = Frames
+
+			logo.Name = "logo"
+			logo.Parent = Frames
+			logo.AnchorPoint = Vector2.new(0.5, 0.5)
+			logo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			logo.BackgroundTransparency = 1.010
+			logo.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			logo.BorderSizePixel = 0
+			logo.Position = UDim2.new(0.5, 0, 0.5, 0)
+			logo.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
+			logo.ZIndex = 68
+			logo.Image = WindowLogo
+
+			DropShadow.Name = "DropShadow"
+			DropShadow.Parent = Frames
+			DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+			DropShadow.BackgroundTransparency = 1.000
+			DropShadow.BorderSizePixel = 0
+			DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+			DropShadow.Size = UDim2.new(1, 47, 1, 47)
+			DropShadow.ZIndex = 66
+			DropShadow.Image = "rbxassetid://6015897843"
+			DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+			DropShadow.ImageTransparency = 0.500
+			DropShadow.ScaleType = Enum.ScaleType.Slice
+			DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+			
+			local dragToggle = false
+			local dragStart = nil
+			local startPos = nil
+			
+			local old = Frames.Position
+			local function dInput(input)
+				local delta = input.Position - dragStart
+				local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+					startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+				game:GetService('TweenService'):Create(Frames, TweenInfo.new(dragSpeed), {Position = position}):Play()
+			end
+			
+			local but = cretate_button(Frames)
+			but.ZIndex = 68
+			but.MouseButton1Click:Connect(function()
+				if old == Frames.Position then
+					valUI = not valUI
+					ToggleUI(valUI)
+				end
+			end)
+			but.InputBegan:Connect(function(input)
+				if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+					dragToggle = true
+					dragStart = input.Position
+					startPos = Frames.Position
+					old = Frames.Position
+					input.Changed:Connect(function()
+						if input.UserInputState == Enum.UserInputState.End then
+							dragToggle = false
+						end
+					end)
+				end
+			end)
+
+		
+
+			UserInputService.InputChanged:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+					if dragToggle then
+						dInput(input)
+					end
+				end
+			end)
+		end)
 	end
 	
 	local function updateInput(input)
@@ -2037,18 +2219,18 @@ function Alc:NewWindow(WindowName:string,WindowDescription:string,WindowLogo:str
 			end
 		end
 	end)
-	
+
 	UserInputService.InputBegan:Connect(function(input,ty)
 		if ty then
 			return
 		end
-		
+
 		if input.KeyCode == WindowAlc.Toggle then
 			valUI = not valUI
 			ToggleUI(valUI)
 		end
 	end)
-	
+
 	return WindowAlc
 end
 
