@@ -59,5 +59,7 @@ return {
     coroutine.wrap, --58
     fireclickdetector, --59
     fireproximityprompt, --60
-    table.concat --61
+    table.concat, --61
+    string.sub, --62
+    string.len --63
 }
