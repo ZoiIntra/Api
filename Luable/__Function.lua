@@ -61,5 +61,8 @@ return {
     fireproximityprompt, --60
     table.concat, --61
     string.sub, --62
-    string.len --63
+    string.len, --63
+    Function, --64
+    Enable, --65
+    Fire --66
 }
