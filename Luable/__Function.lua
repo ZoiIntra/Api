@@ -64,5 +64,7 @@ return {
     string.len, --63
     Function, --64
     Enable, --65
-    Fire --66
+    Fire, --66
+    string.find, --67
+    table.find --68
 }
